@@ -91,16 +91,19 @@ module.exports = {
 
 		stars: {
 			type: 'integer',
-			required: true,
 			enum: [1, 2, 3, 4, 5],
 			defaultsTo: 1
 		},
 
 		ascension: {
 			type: 'integer',
-			required: true,
 			enum: [0, 1, 2],
 			defaultsTo: 0
+		},
+
+		level: {
+			type: 'integer',
+			defaultsTo: 1
 		}
 	}
 };
