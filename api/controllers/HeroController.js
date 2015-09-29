@@ -804,8 +804,10 @@ module.exports = {
 				'spiritResist': 2
 			}])
 		.then(function (resp) {
+			console.log('Done creating Db');
 			return res.ok();
 		}).catch(function (error) {
+			console.log('Failed creating Db');
 			return res.serverError(error);
 		})
 	}
