@@ -8,8 +8,7 @@
 module.exports = {
 
 	createDb: function (req, res) {
-
-		console.log('createdb');
+		console.log('Creating Hero Database...');
 
 		Hero.create([{
 			name: 'Abigail the Brutal',
@@ -810,7 +809,7 @@ module.exports = {
 		.catch(function (error) {
 			console.log('Failed creating Db');
 			return res.serverError(error);
-		})
+		});
 	}
 
 };
