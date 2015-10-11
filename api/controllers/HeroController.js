@@ -709,7 +709,7 @@ module.exports = {
 					spiritResist: 2
 		},
 				{
-					name: 'Archangle Emily',
+					name: 'Archangel Emily',
 					attack: 157,
 					defense: 169,
 					skill: 123,
