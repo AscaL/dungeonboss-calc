@@ -46,6 +46,7 @@ module.exports.routes = {
 	*                                                                          *
 	***************************************************************************/
 
-	'get /createdb': 'HeroController.createDb'
+	'get /createdb': 'HeroController.createDb',
+	'post /calculateStats': 'HeroController.calculateStats',
 
 };
