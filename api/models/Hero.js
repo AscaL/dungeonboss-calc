@@ -5,6 +5,10 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 
+'use strict';
+
+var _ = require('lodash');
+
 module.exports = {
 
 	attributes: {
@@ -105,5 +109,67 @@ module.exports = {
 			type: 'integer',
 			defaultsTo: 1
 		}
+	},
+
+	/* Function that calculates the stats of a Hero, give level, ascension and stars */
+	calculateStats: function (hero, level, stars, ascensions, cb) {
+		console.log('level:', level);
+		console.log('stars:', stars);
+		console.log('ascensions:', ascensions);
+		Hero.findOne({
+				name: hero
+			})
+			.then(function (heroFullStats) {
+				console.log('heroFullStats:', heroFullStats);
+				var heroStats = _.pick(heroFullStats, ['attack', 'defense', 'skill', 'health']);
+				console.log('heroStats:', heroStats);
+				var newHeroStats = {};
+			newHeroStats.name = hero;
+				_.forOwn(heroStats, function (statValue, statName) {
+					console.log('stat:', statName, statValue);
+					var a = ((level - 1) * 0.08) + 1;
+					console.log('a:', a);
+					var b = statValue * starPower(stars);
+					console.log('b:', b);
+					var c = b * ascPower(ascensions);
+					console.log('c:', c);
+					var newStat = _.round(c * a, 1);
+
+					console.log('newStat:', newStat);
+					newHeroStats[statName] = newStat;
+				})
+				console.log('newHeroStats:', newHeroStats);
+				return cb(newHeroStats);
+
+			})
+			.catch(function (err) {
+				return cb(err)
+			})
 	}
+
 };
+
+function starPower(star) {
+	var starVal = {
+		1: 1,
+		2: 1.125,
+		3: 1.25,
+		4: 1.375,
+		5: 1.5
+	}
+
+	console.log('get starval, star:', _.get(starVal, star));
+	return _.get(starVal, star);
+}
+
+// fixme: The values are not right.
+function ascPower(asc) {
+	var ascVal = {
+		0: 1,
+		1: 1,
+		2: 1,
+	}
+
+	console.log('get starval, star:', _.get(ascVal, asc));
+	return _.get(ascVal, asc);
+}
