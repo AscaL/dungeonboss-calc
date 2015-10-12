@@ -19,16 +19,16 @@ describe('- Hero', function () {
 				.post('/Hero/calculateStats')
 				.send({
 					hero: 'Abigail the Brutal',
-					level: 15,
-					stars: 3,
+					level: 44,
+					stars: 2,
 					ascensions: 1
 				})
 				.expect(200, {
 					name: 'Abigail the Brutal',
-					attack: 400.2,
-					defense: 333.9,
-					skill: 318,
-					health: 1049.4
+					attack: 820.6,
+					defense: 680,
+					skill: 647.7,
+					health: 2140.2
 				}, done);
 		});
 	});
