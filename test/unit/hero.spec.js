@@ -33,14 +33,4 @@ describe('- Hero', function () {
 		})
 	})
 
-	describe('- GET /hero', function () {
-		it('- respond with json', function (done) {
-			agent
-				.get('/hero')
-				.set('Accept', 'application/json')
-				.expect('Content-Type', /json/)
-				.expect(200, done);
-		})
-	})
-
 })
