@@ -164,7 +164,7 @@ function starPower(star) {
 	sails.log.verbose('starVal:', starVal);
 	sails.log.verbose('star:', star);
 
-	sails.log.verbose('get starval, star:', _.get(starVal, star.));
+	sails.log.verbose('get starval, star:', _.get(starVal, star));
 
 	return _.get(starVal, star);
 }
