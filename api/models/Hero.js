@@ -116,22 +116,24 @@ module.exports = {
 		sails.log.verbose('level:', level);
 		sails.log.verbose('stars:', stars);
 		sails.log.verbose('ascensions:', ascensions);
+
 		Hero.findOne({
 				name: hero
 			})
 			.then(function (heroFullStats) {
-				sails.log.verbose('heroFullStats:', heroFullStats);
 				var heroStats = _.pick(heroFullStats, ['attack', 'defense', 'skill', 'health']);
 				sails.log.verbose('heroStats:', heroStats);
+
 				var newHeroStats = {};
-			newHeroStats.name = hero;
+				newHeroStats.name = hero;
+
 				_.forOwn(heroStats, function (statValue, statName) {
 					sails.log.verbose('stat:', statName, statValue);
 					var a = ((level - 1) * 0.08) + 1;
 					sails.log.verbose('a:', a);
 					var b = statValue * starPower(stars);
 					sails.log.verbose('b:', b);
-					var c = b * ascPower(ascensions);
+					var c = b * ascPower(ascensions, statName);
 					sails.log.verbose('c:', c);
 					var newStat = _.round(c * a, 1);
 
@@ -150,6 +152,8 @@ module.exports = {
 };
 
 function starPower(star) {
+	sails.log.verbose('star:', star);
+
 	var starVal = {
 		1: 1,
 		2: 1.125,
@@ -157,19 +161,64 @@ function starPower(star) {
 		4: 1.375,
 		5: 1.5
 	}
+	sails.log.verbose('starVal:', starVal);
+	sails.log.verbose('star:', star);
 
-	sails.log.verbose('get starval, star:', _.get(starVal, star));
+	sails.log.verbose('get starval, star:', _.get(starVal, star.));
+
 	return _.get(starVal, star);
 }
 
-// fixme: The values are not right.
-function ascPower(asc) {
-	var ascVal = {
+function ascPower(asc, statName) {
+	var currentStats = statName;
+	sails.log.verbose('statName:', statName);
+
+	var ascAttackVal = {
+		name: 'attack',
 		0: 1,
-		1: 1,
-		2: 1,
+		1: 1.088,
+		2: 1.186,
 	}
 
+	var ascDefenseVal = {
+		name: 'defense',
+		0: 1,
+		1: 1.0805,
+		2: 1.177,
+	}
+
+	var ascSkillVal = {
+		name: 'skill',
+		0: 1,
+		1: 1.0805,
+		2: 1.177,
+	}
+
+	var ascHealthVal = {
+		name: 'health',
+		0: 1,
+		1: 1.082,
+		2: 1.179,
+	}
+
+	var ascVal = {
+		ascAttackVal: ascAttackVal,
+		ascDefenseVal: ascDefenseVal,
+		ascSkillVal: ascSkillVal,
+		ascHealthVal: ascHealthVal
+	}
+
+	var finalValue = null;
+	_.forEach(ascVal, function (ascObj) {
+		sails.log.verbose('ascObj:', ascObj);
+		if (_.isEqual(ascObj.name, statName)) {
+			sails.log.verbose('_get(ascObj, asc):', _.get(ascObj, asc));
+			finalValue = _.get(ascObj, asc)
+		}
+	})
+	sails.log.verbose('finalValue:', finalValue);
+
+
 	sails.log.verbose('get starval, star:', _.get(ascVal, asc));
-	return _.get(ascVal, asc);
+	return finalValue;
 }
