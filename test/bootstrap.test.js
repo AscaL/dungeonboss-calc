@@ -23,10 +23,10 @@ before(function (done) {
 		// here you can load fixtures, etc.
 		done(err, sails);
 	});
-})
+});
 
 // Global after hook
 after(function (done) {
 	console.log() // Skip a line before displaying Sails lowering logs
-	Sails.lower(done)
-})
+	Sails.lower(done);
+});
