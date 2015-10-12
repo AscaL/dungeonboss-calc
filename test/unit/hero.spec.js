@@ -9,9 +9,9 @@ describe('- Hero', function () {
 		it('- Should create the heroes database and return 200', function (done) {
 			agent
 				.get('/Hero/createDb')
-				.expect(200, done)
-		})
-	})
+				.expect(200, done);
+		});
+	});
 
 	describe('- calculateStats()', function () {
 		it('- Should create the heroes database and return 200', function (done) {
@@ -29,8 +29,7 @@ describe('- Hero', function () {
 					defense: 333.9,
 					skill: 318,
 					health: 1049.4
-				}, done)
-		})
-	})
-
-})
+				}, done);
+		});
+	});
+});
