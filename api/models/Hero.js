@@ -113,33 +113,33 @@ module.exports = {
 
 	/* Function that calculates the stats of a Hero, give level, ascension and stars */
 	calculateStats: function (hero, level, stars, ascensions, cb) {
-		console.log('level:', level);
-		console.log('stars:', stars);
-		console.log('ascensions:', ascensions);
+		sails.log.verbose('level:', level);
+		sails.log.verbose('stars:', stars);
+		sails.log.verbose('ascensions:', ascensions);
 		Hero.findOne({
 				name: hero
 			})
 			.then(function (heroFullStats) {
-				console.log('heroFullStats:', heroFullStats);
+				sails.log.verbose('heroFullStats:', heroFullStats);
 				var heroStats = _.pick(heroFullStats, ['attack', 'defense', 'skill', 'health']);
-				console.log('heroStats:', heroStats);
+				sails.log.verbose('heroStats:', heroStats);
 				var newHeroStats = {};
 			newHeroStats.name = hero;
 				_.forOwn(heroStats, function (statValue, statName) {
-					console.log('stat:', statName, statValue);
+					sails.log.verbose('stat:', statName, statValue);
 					var a = ((level - 1) * 0.08) + 1;
-					console.log('a:', a);
+					sails.log.verbose('a:', a);
 					var b = statValue * starPower(stars);
-					console.log('b:', b);
+					sails.log.verbose('b:', b);
 					var c = b * ascPower(ascensions);
-					console.log('c:', c);
+					sails.log.verbose('c:', c);
 					var newStat = _.round(c * a, 1);
 
-					console.log('newStat:', newStat);
+					sails.log.verbose('newStat:', newStat);
 					newHeroStats[statName] = newStat;
 				})
-				console.log('newHeroStats:', newHeroStats);
-				return cb(newHeroStats);
+				sails.log.verbose('newHeroStats:', newHeroStats);
+				return cb(null, newHeroStats);
 
 			})
 			.catch(function (err) {
@@ -158,7 +158,7 @@ function starPower(star) {
 		5: 1.5
 	}
 
-	console.log('get starval, star:', _.get(starVal, star));
+	sails.log.verbose('get starval, star:', _.get(starVal, star));
 	return _.get(starVal, star);
 }
 
@@ -170,6 +170,6 @@ function ascPower(asc) {
 		2: 1,
 	}
 
-	console.log('get starval, star:', _.get(ascVal, asc));
+	sails.log.verbose('get starval, star:', _.get(ascVal, asc));
 	return _.get(ascVal, asc);
 }
