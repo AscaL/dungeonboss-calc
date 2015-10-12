@@ -22,7 +22,7 @@ module.exports = {
 	},
 
 	createDb: function (req, res) {
-		console.log('Creating Hero Database...');
+		sails.log.verbose('Creating Hero Database...');
 
 		Hero.create([{
 					name: 'Abigail the Brutal',
@@ -817,11 +817,11 @@ module.exports = {
 					spiritResist: 2
 		}])
 			.then(function (resp) {
-				console.log('Done creating Db');
+				sails.log.verbose('Done creating Db');
 				return res.ok();
 			})
 			.catch(function (error) {
-				console.log('Failed creating Db');
+				sails.log.verbose('Failed creating Db');
 				return res.serverError(error);
 			});
 	}
