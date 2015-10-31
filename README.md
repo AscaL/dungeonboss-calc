@@ -1,9 +1,9 @@
 # dungeonboss-calc
-This project is for the game [Dungeon Boss](forum.dungeonboss.com/).
+This project is for the game [Dungeon Boss](https://www.forum.dungeonboss.com/).
 
 It will (probably) be a calculator for the Heroes Stats, based on `level`, `stars` and `ascensions`.
 
-### Helpling Out:
+### Helping Out:
 
 If you want to help me, please open an [Issue](https://github.com/AscaL/dungeonboss-calc/issues) or a [Pull Request](https://github.com/AscaL/dungeonboss-calc/pulls)! I'll asnwer as soon as I can.
 
